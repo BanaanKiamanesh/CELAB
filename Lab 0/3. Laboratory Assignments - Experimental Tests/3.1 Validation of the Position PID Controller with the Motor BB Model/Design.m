@@ -2,8 +2,10 @@ clear
 close all
 clc
 
+addpath("../../utils/");
+
 %% Model Parameter Declaration
-run("../../utils/params.m");
+params;
 
 %% Simplified Plant Model
 Req = mot.R + sens.curr.Rs;
