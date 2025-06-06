@@ -23,43 +23,43 @@ D = 0;
 
 N = size(A, 1);             % System Order
 
-%% Augmented System
-Ae = [0, C; zeros(2, 1), A];
-Be = [0; B];
-Ce = [0, C];
-
-% N = size(Ae, 1);             % Augmented System Order
-
 %% Controller Params
-SettlingTime    = 0.15;           % Settling Time
-Mp              = 0.1;            % Overshoot
+SettlingTime = 0.15;           % Settling Time
+Mp           = 0.1;            % Overshoot
 
 % Approximated Second Order Sys Params
 Zeta = log(1/Mp) / sqrt(pi^2 + log(1/Mp)^2);
 Wn   = 3 / Zeta / SettlingTime;
 
 % Controller Desired Poles
-L1 = -Zeta * Wn + 1j * Wn * sqrt(1-Zeta^2);
+L1 = Wn * exp(1j * (-pi + pi/4));
 L2 = conj(L1);
-L3 = -Zeta * Wn;
+L3 = Wn * exp(1j * (-pi + pi/6));
+L4 = conj(L3);
 
-Poles = [L1, L2, L3];
-
-%% State Feedback Controller Design
-K = place(Ae, Be, Poles);
-
-Ki = K(1);
-K  = K(2:end);
-
-% Computing FeedForward Gains
-tmp = [A, B; C, 0] \ [zeros(N, 1); 1];
-Nx = tmp(1:N, 1);
-Nu = tmp(end);
-
-Nr = Nu + K * Nx;
+Poles = [L1, L2, L3, L4];
 
 %% Reference Signal
-Ref = 70;
+Tr = 1;
+Ref = 90;
+
+% Exo-System Creation
+W0 = 2*pi/Tr;
+Ar = [    0, 1
+      -W0^2, 0];
+Br = zeros(2, 1);
+Cr = [1, 0];
+Dr = 0;
+
+
+%% State Feedback Controller Design
+
+% Create the Augmented System
+Az = [Ar, [zeros(1, 2); C]; zeros(2, 2), A];
+Bz = [zeros(2, 1); B];
+
+% Controller Design
+K = place(Az, Bz, Poles);
 
 %% Real Derivative
 Delta = 1 / sqrt(2);
