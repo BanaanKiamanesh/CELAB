@@ -45,7 +45,8 @@ Beq_hat_Neg = thLS_hat(1);
 Tau_sf_Neg  = thLS_hat(2);
 
 % Get the Final Estimated Values
-Beq = (Beq_hat_Pos + Beq_hat_Neg) / 2;
+Beq    = (Beq_hat_Pos + Beq_hat_Neg) / 2;
 Tau_sf = (abs(Tau_sf_Pos) + abs(Tau_sf_Neg)) / 2;
 
-%% Inertia Estimation
+%% Save Data
+save('../../utils/BBParams.mat', "Beq", "Tau_sf");
