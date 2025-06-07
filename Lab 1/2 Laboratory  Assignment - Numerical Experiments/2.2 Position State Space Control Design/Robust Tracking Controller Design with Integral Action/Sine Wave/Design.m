@@ -2,7 +2,7 @@ clear
 close all
 clc
 
-addpath("../../../utils/");
+addpath("../../../../utils/");
 
 %% Model Parameter Declaration
 params;
