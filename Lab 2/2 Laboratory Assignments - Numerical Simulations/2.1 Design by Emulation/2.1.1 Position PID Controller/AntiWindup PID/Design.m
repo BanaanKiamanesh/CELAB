@@ -39,5 +39,9 @@ ITF.den = [1, -1];
 DTF.num = [1, -1];
 DTF.den = [Tl+Ts, -Tl];
 
+%% Anti-Windup Parameters
+Tw = SettlingTime / 5;
+Kw = 1 / Tw;
+
 %% Input Reference
 Ref = 50;
