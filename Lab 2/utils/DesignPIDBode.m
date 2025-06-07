@@ -38,6 +38,6 @@ function [Kp, Ki, Kd, Tl, Wgc] = DesignPIDBode(P, Ts, Mp, Alpha)
     Kd = Kp * Td;
     Ki = Kp / Ti;
 
-    % Real Derivative Time Constant (must be between 2-5 Chosen 3)
-    Tl = 1/(5*Wgc);
+    % Real Derivative Time Constant (must be between 2-5 Chosen 2 as Said in the Assignment File)
+    Tl = 1 / (2*Wgc);
 end
