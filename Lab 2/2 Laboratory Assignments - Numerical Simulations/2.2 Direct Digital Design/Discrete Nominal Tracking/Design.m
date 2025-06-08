@@ -65,7 +65,7 @@ Jo = [0, 1; 0, L];
 K = place(Phi, Gamma, Poles);
 
 % Computing FeedForward Gains
-tmp = [A, B; C, 0] \ [0; 0; 1];
+tmp = [Phi - eye(2), Gamma; H, 0] \ [0; 0; 1];
 Nx = tmp(1:N, 1);
 Nu = tmp(end);
 
