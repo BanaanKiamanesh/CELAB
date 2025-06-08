@@ -105,10 +105,7 @@ daq.adc.q = 2*daq.adc.fs/(2^daq.adc.bits-1);            % quantization
 
 
 %% Modeling Simplification Variables
-
-% Tentative Values of the Non-Estimated Values
-Beq = 2e-6;             % Viscous Friction Nm/(rad/s)
-Tau_sf = 1e-2;          % Coulomb Friction Coef Nm
+Tau_sf = mld.tausf;                     % Coulomb Friction Coef Nm
 
 % Electrical Dynamics
 ElecDyn.num = 1;
@@ -116,7 +113,7 @@ ElecDyn.den = [mot.L, (mot.R + sens.curr.Rs)];
 
 % Mechanical Dynamics
 MechDyn.num = 1;
-MechDyn.den = [(mot.J + mld.JD/gbox.N^2), Beq];
+MechDyn.den = [mot.J + mld.J/gbox.N^2,  mot.B + mld.B/gbox.N^2];
 
 % Sampling Time
 Ts = 1/1000;
