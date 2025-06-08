@@ -126,8 +126,9 @@ Jeq_hat    = 5.604163427985364e-07;
 Tau_sf = Tau_sf_hat;                     % Coulomb Friction Coef Nm
 
 % Electrical Dynamics
+Req = mot.R + sens.curr.Rs;
 ElecDyn.num = 1;
-ElecDyn.den = [mot.L, (mot.R + sens.curr.Rs)];
+ElecDyn.den = [mot.L, Req];
 
 % Mechanical Dynamics
 MechDyn.num = 1;
@@ -136,3 +137,8 @@ MechDyn.den = [mot.J + mld.Jh/gbox.N^2,  mot.B + mld.Bh/gbox.N^2];
 % Sampling Time
 InternalTs = 1/1000;
 
+
+%% Bias Estimation Interval Value
+t1 = 0.7;
+t0 = 0.2;
+BiasIntegratorGain = 1 / (t1 - t0);
