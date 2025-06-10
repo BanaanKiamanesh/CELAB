@@ -219,3 +219,16 @@ sens.mpu.gyro.LSB2rads = sens.mpu.gyro.LSB2degs * deg2rad;                      
 sens.mpu.gyro.bw = 98;                                                          % out low-pass filter BW [Hz]
 sens.mpu.gyro.noisestd = 5e-3*sqrt(100);                                        % output noise std [degs-rms]
 sens.mpu.gyro.noisevar = sens.mpu.acc.noisestd ^2;                              % output noise var [degs^2]
+
+
+%% Simulink Simplification Params
+M11 = 2 * wheel.Iyy + 2 * gbox.N^2 * mot.rot.Iyy + (body.m + 2*wheel.m + 2*mot.rot.m) * wheel.r^2;
+M22 = body.Iyy + 2 * (1 - gbox.N)^2 * mot.rot.Iyy + body.m * body.zb^2 + 2 * mot.rot.m * mot.rot.zb^2;
+
+Fv1 = [2*(gbox.B + wheel.B), -2 * gbox.B
+                -2 * gbox.B,  2 * gbox.B];
+
+ua2tau = 2 * gbox.N * mot.Kt / mot.R * [1, -1]';
+
+% Sampling Time
+Ts = 0.01;
