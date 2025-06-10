@@ -60,9 +60,8 @@ L1 = Wn * exp(1j * (-pi + Phi));
 L2 = conj(L1);
 L3 = Wn * exp(1j * (-pi + Phi/2));
 L4 = conj(L3);
-L5 = -Wn;
 
-Poles = [L1, L2, L3, L4, L5];
+Poles = [L1, L2, L3, L4];
 
 %% Simple LQR Controller Design
 % Root Locus Figure
@@ -125,7 +124,7 @@ RD.num = [Wc^2, 0];
 RD.den = [1, 2*Delta*Wc, Wc^2];
 
 %% Observer Design for Simple SS System
-OsbvPoles = Poles(1:4) * 5;
+OsbvPoles = Poles * 5;
 
 L = place(A', C', OsbvPoles)';
 
