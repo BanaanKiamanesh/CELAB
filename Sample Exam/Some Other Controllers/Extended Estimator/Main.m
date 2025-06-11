@@ -48,3 +48,27 @@ Bo = [Be, L];
 Co = eye(5);
 Do = zeros(5, 2);
 
+%% Discrete Observer
+Ts = 0.001;
+
+% % Forward Euler
+% Ao_d = eye(5) + Ao * Ts;
+% Bo_d = Bo * Ts;
+% Co_d = Co;
+% Do_d = Do;
+
+% % Backward Euler
+% Ao_d = inv(eye(5) - Ao * Ts);
+% Bo_d = inv(eye(5) - Ao * Ts) * Bo * Ts;
+% Co_d = Co * inv(eye(5) - Ao * Ts);
+% Do_d = Do + Co * inv(eye(5) - Ao * Ts) * Bo * Ts;
+
+% % Tustin
+% Ao_d = (eye(5) + Ao * Ts / 2) * (eye(5) - Ao * Ts / 2)^-1;
+% Bo_d = (eye(5) - Ao * Ts / 2)^-1 * Bo * sqrt(Ts);
+% Co_d = sqrt(Ts) * Co * (eye(5) - Ao * Ts / 2)^-1;
+% Do_d = Do + Co * (eye(5) - Ao * Ts / 2)^-1 * Bo * Ts / 2;
+
+% Exact
+P_d = c2d(ss(Ao, Bo, Co, Do), Ts, 'zoh');
+[Ao_d, Bo_d, Co_d, Do_d] = ssdata(P_d);
