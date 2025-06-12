@@ -25,7 +25,7 @@ Alpha = 500;            % Ti / Td
 [KpRamp, KiRamp, KdRamp, TlRamp] = DesignPID(P, RiseTime, Mp, Alpha);
 
 % Anti-Windup
-Kw = 1 / RiseTime / 5;
+Kw = 1 / (RiseTime / 5);
 
 %% Aux Functions
 function [Kp, Ki, Kd, Tl] = DesignPID(P, RiseTime, Mp, Alpha)
